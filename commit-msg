@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#from the JIRA Docs https://confluence.atlassian.com/adminjiracloud/integrating-with-development-tools-776636216.html
+#Note that the issue key must conform to the default Jira key format – that is,
+#two or more uppercase letters ([A-Z][A-Z]+), followed by a hyphen and the issue number. For example, ABC-123.
+
+JIRA_TICKETNUMBER=$(cat "$1" | grep -Ec "[A-Z]{2}[-][0-9]{1}")
+error_message="Append proper JIRA tag to the commit message... For example, ABC-123."
+
+if ! [ "$JIRA_TICKETNUMBER" -gt 0 ]
+then
+    echo $error_message
+    exit 1
+fi
